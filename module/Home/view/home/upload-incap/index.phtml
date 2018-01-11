@@ -1,0 +1,140 @@
+<?php
+
+/*
+?>
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+</tr>
+
+<?php 
+var_export($this->tipoincap);
+foreach ($this->tipoincap as $album) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($album->id) ?></td>
+        <td><?= $this->escapeHtml($album->nombre) ?></td>
+        <td>
+            <a href="">Edit</a>
+            <a href="">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
+</table>
+
+<?php 
+*/
+// within a view script
+?>
+<form enctype="multipart/form-data" id="formuploadajax" method="post" onsubmit="return false;">
+<label>archivo a subir</label><input type="file" accept="text/csv" id="incapacidades">
+<input type="submit" value="Subir archivos"/>
+</form>
+
+<a href="<?= $url="http://".$_SERVER['HTTP_HOST']."/files/templates/plantilla.csv";?>" target="_blank" id="plantilla">descargar plantilla</a>
+<script type="text/javascript">
+
+
+$(function(){
+    $("#formuploadajax").on("submit", function(e){
+        e.preventDefault();
+        //var f = $(this);
+        //var formData = new FormData(document.getElementById("formuploadajax"));
+        //formData.append("dato", "valor");
+        //formData.append(f.attr("archivo"), $(this)[0].files[0]);
+        //var cadena = $(this).serializeArray();
+        var data = new FormData();
+        jQuery.each($('input[type=file]')[0].files, function(i, file) {
+            data.append('file-'+i, file);
+        });
+        $.ajax({
+            url: "<?= $this->url('upload_incap', array('action' => 'getfile')); ?>",
+            type: "post",
+            dataType: "json",
+            data: data,
+            cache: false,
+            contentType: false,
+     		processData: false
+        })
+            .done(function(res){
+                if ( res.error != undefined ) {
+                	swal({
+                        title: "Error",
+                        text: res.error,
+                        type: "error",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true,
+                      } /*,
+                      function(){
+                        setTimeout(function(){
+                          var url = "/add_incap/index/'.$post["id_incapacidad"].'";
+                          $(location).attr("href",url);
+                        }, 200);
+                      }*/
+                      );
+                } else {
+                	swal({
+                        title: "Incapacidades",
+                        text: res.html,
+                        //type: "success",
+                        html: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true,
+                        customClass: 'swal-wide',
+                        showCancelButton: true,
+                        cancelButtonColor: "#DD6B55",
+                        confirmButtonText: "Insertar estas incapacidades?",
+                        cancelButtonText: "Cancelar!",
+                      } ,
+                      function(){
+
+                    	  var parametros = {
+                                  "datos" : res.datosUpload,
+                                  //"html" : 456  //res.html
+                          };
+							
+                    	  $.ajax({
+                              url: "<?= $this->url('upload_incap', array('action' => 'savefile')); ?>",
+                              type: "post",
+                              dataType: "json",
+                              data: parametros,
+                              
+                          })
+                          .done(function(res2){
+                              if ( res2.error != undefined ) {
+                            	  swal("Error", res2.error, "error");
+                              } else {
+
+                            	  swal({
+                                      title: "Listo!",
+                                      text: "Se han subido satisfactoriamente las incapacidades.",
+                                      type: "success",
+                                      //showCancelButton: true,
+                                      closeOnConfirm: false,
+                                      showLoaderOnConfirm: true,
+                                    },
+                                    function(){
+                                      setTimeout(function(){
+                                        var url = "/upload_incap";
+                                        $(location).attr("href",url);
+                                      }, 200);
+                                    });
+                            	  //swal("Listo!", "Se han subido satisfactoriamente las incapacidades.", "success");	
+                              }
+                          });
+                      }
+                      );
+					
+                }
+            });
+
+        return false;
+    });
+});
+    
+    
+
+</script>
+

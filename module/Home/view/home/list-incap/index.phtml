@@ -1,0 +1,172 @@
+<?php
+
+/*
+$form = $this->form;
+
+$campo = $form->get('cedula');
+echo "<script>";
+echo "var criterioPersona = '<div class=\"col-md-2\">".$this->formselect($campo)."</div>'";
+echo "</script>";
+*/
+
+
+
+echo "<script>";
+foreach ( $datosform as $k => $info ){
+    $jsVar = "var $k = [";
+    $jsVarId = "var ".$k."_id = [";
+    foreach ($info as $kk => $datos){
+        
+        if ( $k == "tipoIncapacidad" ){
+            $jsVar .= '"'.$datos->tipoincapacidad.'",';
+            $jsVarId .= $datos->id_tipoincapacidad.",";
+        }
+        
+        if ( $k == "sucursales" ){
+            $jsVar .= '"'.$datos->sucursal.'",';
+            $jsVarId .= $datos->id_sucursal.",";
+        }
+
+        if ( $k == "epss" ){
+            $jsVar .= '"'.$datos->nombre_eps.'",';
+            $jsVarId .= $datos->id_eps.",";
+        }
+
+        
+    }
+    $jsVar .= "];";
+    $jsVarId .= "];";
+    
+    //echo "$k<br>";
+    echo $jsVarId;
+    echo $jsVar;
+}
+echo "$(document).on('click', '#nuevaIncapacidad', function() {
+  
+	var data = Array();
+	data.push({name: 'action', value: 'nuevo'});
+	$.get(\"".$this->url('add_incap', array('action' => 'index'))."\", data)
+					.done(function(respuesta) {
+		 $('#html_contentPop').html(respuesta);
+		//startParsley('frm_detailReservas', 'notificationReservasDetail');
+	});
+	$('#modalincap').modal(
+					{keyboard: false, backdrop: 'static', show: true}
+	);
+});";
+echo "</script>";
+
+$title = 'Incapacidades';
+$this->headTitle($title);
+
+
+?><span>Consultar Incapacidades</span>
+<span style="float:right;">
+<span>
+	<select id="select_reporte">
+		<option>Fechas</option>
+		<option>Dias</option>
+		<option>Eps</option>
+	</select>
+	<a class="btn btn-success" onclick="exportarReporte();" title="Generar Reporte">Exportar</a>
+</span>
+    <a id="nuevaIncapacidad" class="btn btn-info"  title="Adicionar nueva incapacidad">Nueva Incapacidad</a>
+</span>
+
+
+<?php //echo $this->form()->openTag($form); ?>
+    
+      
+    <?php 
+    
+    $criterios = ["Persona",
+                    "Sucursal",
+                    "Eps",
+                    "No. Incapacidad",
+                    "Tipo Incapacidad",
+                    "Diagnostico",
+                    "Fecha Inicial",
+                    "Fecha Final",
+                    "Dias Totales",
+                    "Dias Empresa",
+                    "Dias Eps",
+                    "Dias Arl",
+        
+    ];
+    
+    asort($criterios);
+    
+    echo '<div id="parabusqueda">Adicionar criterio de busqueda:'; 
+    
+    echo '<select id="criterios" class="custom-select">'; //onchange="addCriteria(this.value);"
+    echo '<option value="">Seleccione...</option>';
+    foreach ( $criterios as $key => $criterio ) {
+        echo '<option value="'.$key.'">'.$criterio.'</option>';
+    }
+    echo '</select>
+        
+         <span onclick="addCriteria()"><img src="/img/incap/add.png" width="20px" style="cursor:pointer;" title="Añadir Criterio" /></span>
+         <span onclick="buscar()"><img src="/img/incap/search.png" width="20px" style="cursor:pointer;" title="Buscar..." /></span>
+         
+        
+        ';
+    echo '</div>';
+    
+    echo '<form id="formbusqueda">';
+    echo '</form>';
+    
+    ?>
+    
+<br />    
+<div id="incapacidadesEncontradas"></div>
+<div id="view_incap" title="Incapacidad" ></div>
+  <script>
+  $( function() {
+	    $( "#view_incap" ).dialog({
+	      autoOpen: false,
+	      width: "80%",
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+	    });
+	 
+	    
+	  } );
+  </script>
+  <div class='modal fade bs-example-modal-lg' id='modalincap' tabindex='-1' role='dialog' 
+                    aria-labelledby='myModalLabel' aria-hidden='true'>
+                        <div class='modal-popup'>
+                          <div class='modal-content'>
+                            <div class='modal-body'>
+			<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                        <br>
+			<div id= 'html_contentPop'></div>
+                        </div>
+			</div>
+			</div>
+			</div>
+<!--  
+<table class="table">
+<tr>
+    <th>Nuemro</th>
+    <th>Tipo</th>
+    <th>&nbsp;</th>
+</tr>
+<?php /* foreach ($albums as $album) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($album->title) ?></td>
+        <td><?= $this->escapeHtml($album->artist) ?></td>
+        <td>
+            <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
+            <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; */ ?>
+</table>
+
+-->

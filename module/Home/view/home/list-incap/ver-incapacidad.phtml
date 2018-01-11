@@ -1,0 +1,24 @@
+<?php if ( isset($incapacidad) && count($incapacidad) > 0 ) { ?>
+<table class="table">
+    
+<?php foreach($incapacidad as $incap){?>
+    <!--  <tr style="background-color:<?php echo $this->cycle(array("#F0F0F0","#FFFFFF"))->next()?>"> -->
+        <tr><th>N&uacute;mero</th><td><?=$incap->no_incapacidad?></td>
+        <th>Nombre</th><td><?=$incap->nombre." ".$incap->apellido1." ".$incap->apellido2?></td></tr>
+        <tr><th>Fecha Inicio</th><td><?=$incap->fecha_ini?></td>
+        <th>Fecha Fin</th><td><?=$incap->fecha_fin?></td></tr>
+        <tr><th>Eps</th><td><?=$incap->eps?></td>
+        <th>Sucursal</th><td><?=$incap->sucursal?></td></tr>
+        <tr><th>Diagnostico</th><td><?=$incap->diagnostico?></td>
+        <th>Tipo Incapacidad</th><td><?=$incap->tipoincap?></td></tr>
+        <tr><th>Dias Empresa</th><td><?=$incap->n_dias_emp?></td>
+        <th>Dias Eps</th><td><?=$incap->n_dias_eps?></td></tr>
+        <tr><th>Dias Arl</th><td><?=$incap->n_dias_arl?></td>
+        <th>Prorroga</th><td><?=$incap->id_inc_prorroga?></td></tr>
+        
+    
+<?php } ?>
+
+</table>
+
+<?php } ?>

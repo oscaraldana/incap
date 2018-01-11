@@ -1,0 +1,32 @@
+
+<?php if ( isset($incapacidades) && count($incapacidades) > 0 ) { ?>
+
+
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Fechas</th>
+        <th>Eps</th>
+        <th>Sucursal</th>
+        <th>Ver</th>
+        <th>Modificar</th>
+        <th>Eliminar</th>
+    </tr>
+    <?php foreach($incapacidades as $incap){?>
+    <tr style="background-color:<?php echo $this->cycle(array("#F0F0F0","#FFFFFF"))->next()?>">
+        <td><?=$incap->no_incapacidad?></td>
+        <td><?=$incap->nombre." ".$incap->apellido1." ".$incap->apellido2?></td>
+        <td><?=$incap->fecha_ini?></td>
+        <td><?=$incap->eps?></td>
+        <td><?=$incap->sucursal?></td>
+        <td><button class="btn btn-default" onclick="verIncap(<?=$incap->id_incapacidad?>);">Ver</button></td>
+        <td><a class="btn btn-primary" href="javascript:;" value="<?=$incap->id_incapacidad?>" id="editIncapacidad<?=$incap->id_incapacidad?>">Modificar</a></td>
+        <td><a class="btn btn-danger" href="<?=$this->basePath()?>/add_incap/<?=$incap->id_incapacidad?>">Eliminar</a></td>
+        <script>$(document).on('click', '#editIncapacidad<?=$incap->id_incapacidad?>', function() { $.get("<?= $this->url('add_incap', array('action' => 'index', 'id' => ''.$incap->id_incapacidad.'' )) ?>").done(function(respuesta) { $('#html_contentPop').html(respuesta);}); $('#modalincap').modal({keyboard: false, backdrop: 'static', show: true});});</script>
+    </tr>
+    <?php } ?>
+</table>
+
+<?php } ?>

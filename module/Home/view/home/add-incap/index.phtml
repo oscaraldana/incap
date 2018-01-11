@@ -1,0 +1,378 @@
+<?php
+/*
+?>
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+</tr>
+
+<?php 
+var_export($this->tipoincap);
+foreach ($this->tipoincap as $album) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($album->id) ?></td>
+        <td><?= $this->escapeHtml($album->nombre) ?></td>
+        <td>
+            <a href="">Edit</a>
+            <a href="">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
+</table>
+
+<?php 
+*/
+// within a view script
+$form = $this->form;
+$form->prepare();
+
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('add_incap', [ 'action' => 'save_incap']));
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+
+// Get the form label plugin
+$formLabel = $this->plugin('formLabel');
+
+// Render the opening tag
+//echo $this->form()->openTag($form);
+
+
+?>
+
+<?php echo $this->form()->openTag($form); ?>
+
+
+
+    <div id="accordion">
+    	<h3>Informaci&oacute;n Básica</h3>
+    	
+    <?php 
+    echo '<div class="row">';
+        
+        // Id Incapacidad
+        if ( isset($id_incapacidad) && !empty($id_incapacidad) ) {
+            echo "<input type='hidden' name='id_incapacidad' id='id_incapacidad' value='$id_incapacidad'>";
+        }
+        
+        // Tipo Incapacidad
+        $campo = $form->get('tipoIncap')->setValue( (isset($incapacidad["tipoincap"])) ? $incapacidad["tipoincap"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="tipoIncap" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        // Sucursales
+        $campo = $form->get('sucursal')->setValue( (isset($incapacidad["sucursal"])) ? $incapacidad["sucursal"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="sucursal" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    ?>
+            
+
+   
+        <?php 
+    
+        // Eps
+        $campo = $form->get('eps')->setValue( (isset($incapacidad["eps"])) ? $incapacidad["eps"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="eps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        // Asociado
+        $campo = $form->get('cedula');
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="cedula" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Diagnostico
+        $campo = $form->get('diagnostico');
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="diagnostico" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    
+        // Numero Incapacidad
+        $campo = $form->get('nincapacidad')->setValue( (isset($incapacidad["noincap"])) ? $incapacidad["noincap"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="nincapacidad" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formInput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+          
+        // Fecha Inicial
+        $campo = $form->get('fechainicial')->setValue( (isset($incapacidad["fecini"])) ? $incapacidad["fecini"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="fechainicial" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        
+        
+        // Fecha Final
+        $campo = $form->get('fechafinal')->setValue( (isset($incapacidad["fecfin"])) ? $incapacidad["fecfin"] : null);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="fechafinal" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    ?>
+    
+        <?php 
+    
+        // Dias Totales
+        $campo = $form->get('diastotales')->setValue( (isset($incapacidad["diastot"])) ? $incapacidad["diastot"] : 0);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="diastotales" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        // Dias Empresa
+        $campo = $form->get('diasempresa')->setValue( (isset($incapacidad["diasemp"])) ? $incapacidad["diasemp"] : 0);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="diasempresa" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    ?>
+    
+        <?php 
+    
+        // Dias Eps
+        $campo = $form->get('diaseps')->setValue( (isset($incapacidad["diaseps"])) ? $incapacidad["diaseps"] : 0);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="diaseps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        // Dias Arl
+        $campo = $form->get('diasarl')->setValue( (isset($incapacidad["diasarl"])) ? $incapacidad["diasarl"] : 0);
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="diasarl" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->forminput($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    ?>
+    
+        <?php 
+    
+        // Prorroga
+        $campo = $form->get('prorroga');
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="prorroga" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+       
+    ?>
+    
+    </div>
+    
+
+    
+      	<h3>Datos de pago <? // $id_incapacidad ?></h3>
+          <div>
+            
+	<?php 
+	
+	
+        	// Valor Facturado
+        	$campo = $form->get('valorfacturado')->setValue( (isset($incapacidad["valorfacturado"])) ? $incapacidad["valorfacturado"] : 0);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="diaseps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->forminput($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+	
+        	// Valor Pago Eps
+        	$campo = $form->get('valorpagoeps')->setValue( (isset($incapacidad["valorpagoeps"])) ? $incapacidad["valorpagoeps"] : 0);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="diaseps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->forminput($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+	
+        	// Valor Codigo Tesoreria
+        	$campo = $form->get('codtesoreria')->setValue( (isset($incapacidad["codtesoreria"])) ? $incapacidad["codtesoreria"] : null);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="diaseps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->forminput($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+	
+
+        	// Fecha Pago
+        	$campo = $form->get('fechapago')->setValue( (isset($incapacidad["fechapago"])) ? $incapacidad["fechapago"] : null);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="fechafinal" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->formdate($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+	
+	
+
+        	// Fecha Radicacion
+        	$campo = $form->get('fecharadicacion')->setValue( (isset($incapacidad["fecharad"])) ? $incapacidad["fecharad"] : null);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="fechafinal" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->formdate($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+	
+	
+        	// Causal
+        	$campo = $form->get('causal')->setValue( (isset($incapacidad["causal"])) ? $incapacidad["causal"] : null);
+        	echo '<div class="col-sm-6 col-lg-4">';
+        	echo '<div class="form-group">';
+        	echo '<label for="eps" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        	echo '<div class="col-md-8">';
+        	echo $this->formselect($campo);
+        	echo $this->formElementErrors($campo);
+        	echo '</div>';
+        	echo '</div>';
+        	echo '</div>';
+        	
+	?>
+
+
+
+          </div>
+          
+          
+          <!--   <h3>Section 3</h3>
+          <div>
+            <p>
+            Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+            Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+            ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+            lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+            </p>
+            <ul>
+              <li>List item one</li>
+              <li>List item two</li>
+              <li>List item three</li>
+            </ul>
+          </div>
+          -->
+    
+    </div>
+
+    <br>
+    <div class="form-group">
+        <div class="col-xs-offset-5 col-xs-7">
+        <?php echo $this->formInput($form->get('submit'));?>
+            <!--  <input type="submit" class="btn btn-primary" value="Enviar"> 
+             
+            <input type="reset" class="btn btn-default" value="Limpiar">-->
+        </div>
+    </div>
+    <?php echo $this->form()->closeTag($form);?>
+    
+      <script>
+      $( function() {
+        $( "#accordion" ).accordion();
+
+        
+        $('#fechainicial').datetimepicker({ format: 'YYYY-MM-DD' });
+        $('#fechafinal').datetimepicker({  format: 'YYYY-MM-DD' });
+        $('#fechapago').datetimepicker({  format: 'YYYY-MM-DD' });
+        $('#fecharadicacion').datetimepicker({  format: 'YYYY-MM-DD' });
+
+        $('#fechainicial').on('dp.change', function(e){ analizarFechas(); });
+        $('#fechafinal').on('dp.change', function(e){ analizarFechas(); });
+            
+            
+        
+        
+      } );
+      </script>
+<!--  </form>  -->
+
