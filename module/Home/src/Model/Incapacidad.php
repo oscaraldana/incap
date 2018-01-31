@@ -82,7 +82,7 @@ class Incapacidad
         //$this->fecha_pago   = !empty($data["fecha_pago"]) ? $data["fecha_pago"] : null;
     
         $this->id_causal   = !empty($data["causal"]) ? $data["causal"] : null;
-        $this->id_inc_prorroga   = !empty($data["id_inc_prorroga"]) ? $data["id_inc_prorroga"] : null;
+        $this->id_inc_prorroga   = !empty($data["prorroga"]) ? $data["prorroga"] : null;
         $this->id_eps   = !empty($data["eps"]) ? $data["eps"] : null;
          
         $this->id_sucursal   = !empty($data["sucursal"]) ? $data["sucursal"] : null;

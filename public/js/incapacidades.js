@@ -182,6 +182,7 @@ function analizarFechas() {
    var fechaHasta = cambiarFormatoFecha(document.getElementById('fechafinal').value);
    var tipoIncap = $( "#tipoIncap option:selected" ).val();
    var diasx = 0;
+   var esProrroga = false;
    document.getElementById('diastotales').value=0;
    document.getElementById('diasempresa').value=0;
    document.getElementById('diaseps').value=0;
@@ -192,21 +193,36 @@ function analizarFechas() {
     if ( fechaDesde.length > 0 && fechaHasta.length > 0 ) {
        if ( validaFechaDDMMAAAA(fechaDesde) && validaFechaDDMMAAAA(fechaDesde) ) {
             if (validarFechaMayorQue(fechaDesde, fechaHasta)) {
+                
                 diasx = diasEntreFechas(fechaDesde, fechaHasta);
                 document.getElementById('diastotales').value=diasx;
                 
+                $("select[id*=prorroga]").each(function(){
+                    if ( $(this).val() != "" ) {
+                        esProrroga = true;
+                        alert("ES PRORROGA");
+                    }
+                });
+                
                 if (tipoIncap.length > 0) {
                     if(tipoIncap == 1) { // General
-                        if(diasx > 2){
-                            document.getElementById('diasempresa').value=2;
-                            document.getElementById('diaseps').value=diasx-2;
+                        if(esProrroga){
+                            document.getElementById('diasempresa').value=0;
+                            document.getElementById('diaseps').value=diasx;
                             document.getElementById('diasarl').value=0;
+                        } else {
+                            if(diasx > 2){
+                                document.getElementById('diasempresa').value=2;
+                                document.getElementById('diaseps').value=diasx-2;
+                                document.getElementById('diasarl').value=0;
+                            }
+                            else{
+                                document.getElementById('diasempresa').value=diasx;
+                                document.getElementById('diaseps').value=0;
+                                document.getElementById('diasarl').value=0;
+                            }
                         }
-                        else{
-                            document.getElementById('diasempresa').value=diasx;
-                            document.getElementById('diaseps').value=0;
-                            document.getElementById('diasarl').value=0;
-                        }
+                        
                         
                 
                     }
@@ -218,9 +234,16 @@ function analizarFechas() {
                     }
                     
                     if(tipoIncap == 4) { // ARL
-                        document.getElementById('diasempresa').value=1;
-                        document.getElementById('diaseps').value=0;
-                        document.getElementById('diasarl').value=diasx-1;
+                        if(esProrroga){
+                            document.getElementById('diasempresa').value=0;
+                            document.getElementById('diaseps').value=0;
+                            document.getElementById('diasarl').value=diasx;
+                        } else {
+                            document.getElementById('diasempresa').value=1;
+                            document.getElementById('diaseps').value=0;
+                            document.getElementById('diasarl').value=diasx-1;
+                        }
+                        
                     }
                 }
             }

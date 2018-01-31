@@ -41,19 +41,6 @@ foreach ( $datosform as $k => $info ){
     echo $jsVarId;
     echo $jsVar;
 }
-echo "$(document).on('click', '#nuevaIncapacidad', function() {
-  
-	var data = Array();
-	data.push({name: 'action', value: 'nuevo'});
-	$.get(\"".$this->url('add_incap', array('action' => 'index'))."\", data)
-					.done(function(respuesta) {
-		 $('#html_contentPop').html(respuesta);
-		//startParsley('frm_detailReservas', 'notificationReservasDetail');
-	});
-	$('#modalincap').modal(
-					{keyboard: false, backdrop: 'static', show: true}
-	);
-});";
 echo "</script>";
 
 $title = 'Incapacidades';
@@ -70,7 +57,7 @@ $this->headTitle($title);
 	</select>
 	<a class="btn btn-success" onclick="exportarReporte();" title="Generar Reporte">Exportar</a>
 </span>
-    <a id="nuevaIncapacidad" class="btn btn-info"  title="Adicionar nueva incapacidad">Nueva Incapacidad</a>
+    <a class="btn btn-info" href="<?= $this->url('add_incap', array('action' => 'index')) ?>" title="Adicionar nueva incapacidad">Nueva Incapacidad</a>
 </span>
 
 
@@ -138,18 +125,6 @@ $this->headTitle($title);
 	    
 	  } );
   </script>
-  <div class='modal fade bs-example-modal-lg' id='modalincap' tabindex='-1' role='dialog' 
-                    aria-labelledby='myModalLabel' aria-hidden='true'>
-                        <div class='modal-popup'>
-                          <div class='modal-content'>
-                            <div class='modal-body'>
-			<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                        <br>
-			<div id= 'html_contentPop'></div>
-                        </div>
-			</div>
-			</div>
-			</div>
 <!--  
 <table class="table">
 <tr>

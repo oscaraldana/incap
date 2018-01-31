@@ -268,10 +268,12 @@
     <script type="text/javascript">
         $('#tipoIncap').select2();
         $('#sucursal').select2();
+        $('#prorroga').select2();
         $('#eps').select2();
 
   		var url_search_dg = "<?= $this->url('add_incap', array('action' => 'buscarDiagnosticos')); ?>"; // El script a dónde se realizará la petición.
   		var url_search_aso = "<?= $this->url('add_incap', array('action' => 'buscarAsociados')); ?>"; // El script a dónde se realizará la petición.
+  		var url_search_prorroga = "<?= $this->url('add_incap', array('action' => 'buscarIncapacidades')); ?>"; // El script a dónde se realizará la petición.
   		var url_search_incap = "<?= $this->url('list_incap', array('action' => 'buscarIncapacidades')); ?>"; // El script a dónde se realizará la petición.
   		var url_view_incap = "<?= $this->url('list_incap', array('action' => 'verIncapacidad')); ?>"; // El script a dónde se realizará la petición.
   		var url_get_report = "<?= $this->url('list_incap', array('action' => 'generarReporte')); ?>"; // El script a dónde se realizará la petición.
@@ -285,6 +287,9 @@
   		    
   			//minimumInputLength: 2,
   		    //tags: [],
+                    allowClear: true,
+                    placeholder: "Buscar Doagnostico...",			
+
   		    ajax: {
   		        url: url_search_dg,
   		        dataType: "json",
@@ -311,15 +316,10 @@
   		});
 
   		$("#cedula").select2({
-  			//tags: true,
-  		    //multiple: false,
-  		    //tokenSeparators: [',', ' '],
   		    minimumInputLength: 2,
-  		    //minimumResultsForSearch: 10,
-    		//minimumInputLength: 2,
-  		    //tags: [],
-    		
-			ajax: {
+                    allowClear: true,
+                    placeholder: "Buscar Persona...",			
+                    ajax: {
   		        url: url_search_aso,
   		        dataType: "json",
   		        type: "POST",
@@ -345,7 +345,48 @@
   		    },
     		  
   		});
+                
+                $("#prorroga").select2({
+  		    minimumInputLength: 2,
+                    allowClear: true,
+                    placeholder: "Buscar Incapacidad...",
+  		    ajax: {
+  		        url: url_search_prorroga,
+  		        dataType: "json",
+  		        type: "POST",
+  		        data: function (params) {
 
+                            var queryParameters = "";
+                            $("select[id*=cedula]").each(function(){
+                               if ( $(this).val() != "" ) {
+                                   queryParameters = {
+                                        term: params.term,
+                                        asociado: $(this).val()
+                                    }
+
+                                    
+                               } 
+                            });
+                            //alert(queryParameters);
+                            return queryParameters;
+  		            
+  		        },
+    		      processResults: function (data) {
+    	  		        return {
+    	  		            results: $.map(data, function (item) {
+    	  		                return {
+    	  		                    text: item.completeName,
+    	  		                    id: item.id
+    	  		                }
+    	  		            })
+    	  		        };
+    	  		    }
+  		    }
+  		});
+
+                $(document.body).on("change","#prorroga",function(){
+                    analizarFechas();
+                });
 
   		//$("#cedula").select2("val", [{"id":"51","text":"Henry Ford"}]);
       //alert(123);

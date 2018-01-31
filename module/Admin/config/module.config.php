@@ -114,10 +114,10 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             //Controller\CausalesController::class => InvokableFactory::class,
-            /*Controller\CausalesController::class => function(ContainerInterface $serviceManager, $controller){
+            Controller\CausalesController::class => function(ContainerInterface $serviceManager, $controller){
                 $repository = $serviceManager->get(\Home\Model\CausalesTable::class);
                 return new CausalesController($repository);
-            },*/
+            },
             //Controller\AddIncapController::class => InvokableFactory::class,
             /*Controller\AddIncapController::class => function(ContainerInterface $serviceManager, $controller){
                 $repository = new $serviceManager->get(Repositorios::class);

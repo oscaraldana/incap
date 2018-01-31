@@ -54,7 +54,6 @@ class AddIncapController extends AbstractActionController
         $this->tableIncapacidad = $incap;
         $this->tableCausal = $causal;
         
-        
     }
     
     public function indexAction()
@@ -62,8 +61,6 @@ class AddIncapController extends AbstractActionController
         $container = new Container('incapacidades');
         
         $id=$this->params()->fromRoute("id",null);
-        
-        //$this->layout('layout/ajax_layout.phtml');
         
         //$tipoIncap = $this->tipoIncap->getTipIncap();
         
@@ -211,7 +208,7 @@ class AddIncapController extends AbstractActionController
     {
         $this->layout('layout/ajax_layout.phtml');
         $postData = $this->getRequest()->getPost();
-    
+        
         $diag = null;
     
         if ( isset($postData["term"]) && !empty($postData["term"]) ) {
@@ -230,7 +227,34 @@ class AddIncapController extends AbstractActionController
         echo json_encode($respuesta);
     }
 
+    
+    
+    public function buscarIncapacidadesAction()
+    {
+        $this->layout('layout/ajax_layout.phtml');
+        $postData = $this->getRequest()->getPost();
+    
+        $incap = null;
+    
+        if ( isset($postData["asociado"]) && !empty($postData["asociado"]) ) {
+            $incap = $this->tableIncapacidad->consultarIncapacidades(["cedula" => $postData["asociado"], "noincap" => $postData["term"]]);
+        }
+    
+        $respuesta = array();
+        //var_export($diag);
+        if ( $incap != null) {
+            foreach ($incap as $datos) {
+                array_push($respuesta, ["id" => $datos->id_incapacidad, "completeName" => $datos->no_incapacidad]);
+                //$varDiagn[$datos->id_diagnostico] = $datos->nombre;
+            }
+        }
+    
+        echo json_encode($respuesta);
+    }
 
+    
+    
+    
     public function buscarAsociadosAction()
     {
         $this->layout('layout/ajax_layout.phtml');

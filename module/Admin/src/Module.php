@@ -43,11 +43,11 @@ class Module implements ConfigProviderInterface
         return [
             
             'factories' => [
-                \HomeModel\CausalesTable::class => function($container) {
+                \Home\Model\CausalesTable::class => function($container) {
                     $tableGateway = $container->get(\Home\Model\CausalesTableGateway::class);
                     return new \Home\Model\CausalesTable($tableGateway);
                 },
-                \HomeModel\CausalesTableGateway::class => function ($container) {
+                \Home\Model\CausalesTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new \Home\Model\Causales());
@@ -148,8 +148,6 @@ class Module implements ConfigProviderInterface
                             $container->get(\Home\Model\CausalesTable::class)
                         );
                 },
-                
-                                  
                 /*
                 Controller\ListIncapController::class => function($container) {
                     return new Controller\ListIncapController(

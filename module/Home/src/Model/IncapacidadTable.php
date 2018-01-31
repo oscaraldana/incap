@@ -385,6 +385,7 @@ class IncapacidadTable
         $select->join(['eps' => 'eps'],'incapacidad.id_eps = eps.id_eps');
         $select->join(['suc' => 'sucursal'],'incapacidad.id_sucursal = suc.id_sucursal');
         $select->join(['tip' => 'tipoincapacidad'],'incapacidad.id_tipoincapacidad = tip.id_tipoincapacidad');
+        $select->join(['prorr' => 'incapacidad'],'incapacidad.id_incapacidad = prorr.id_incapacidad', $select::JOIN_OUTER);
         $select->where($GLOBALS["where"]);
         
         // GROUP BY

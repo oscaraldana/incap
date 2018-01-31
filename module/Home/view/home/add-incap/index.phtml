@@ -50,14 +50,26 @@ $formLabel = $this->plugin('formLabel');
 
     <div id="accordion">
     	<h3>Informaci&oacute;n Básica</h3>
-    	
+        <div>	
     <?php 
-    echo '<div class="row">';
+    //echo '<div class="row">';
         
         // Id Incapacidad
         if ( isset($id_incapacidad) && !empty($id_incapacidad) ) {
             echo "<input type='hidden' name='id_incapacidad' id='id_incapacidad' value='$id_incapacidad'>";
         }
+        
+        // Asociado
+        $campo = $form->get('cedula');
+        echo '<div class="col-sm-6 col-lg-4">';
+        echo '<div class="form-group">';
+        echo '<label for="cedula" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
+        echo '<div class="col-md-8">';
+        echo $this->formselect($campo);
+        echo $this->formElementErrors($campo);
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
         
         // Tipo Incapacidad
         $campo = $form->get('tipoIncap')->setValue( (isset($incapacidad["tipoincap"])) ? $incapacidad["tipoincap"] : null);
@@ -100,17 +112,7 @@ $formLabel = $this->plugin('formLabel');
         echo '</div>';
         echo '</div>';
         
-        // Asociado
-        $campo = $form->get('cedula');
-        echo '<div class="col-sm-6 col-lg-4">';
-        echo '<div class="form-group">';
-        echo '<label for="cedula" class="control-label col-md-4">' . $campo->getOption('label') . $formLabel->closeTag();
-        echo '<div class="col-md-8">';
-        echo $this->formselect($campo);
-        echo $this->formElementErrors($campo);
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
+        
 
         // Diagnostico
         $campo = $form->get('diagnostico');
@@ -231,8 +233,8 @@ $formLabel = $this->plugin('formLabel');
         echo '</div>';
         echo '</div>';
         echo '</div>';
-       
-    ?>
+        
+        ?>
     
     </div>
     

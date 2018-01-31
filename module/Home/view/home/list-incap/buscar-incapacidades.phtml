@@ -1,8 +1,5 @@
 
 <?php if ( isset($incapacidades) && count($incapacidades) > 0 ) { ?>
-
-
-
 <table class="table">
     <tr>
         <th>#</th>
@@ -22,9 +19,9 @@
         <td><?=$incap->eps?></td>
         <td><?=$incap->sucursal?></td>
         <td><button class="btn btn-default" onclick="verIncap(<?=$incap->id_incapacidad?>);">Ver</button></td>
-        <td><a class="btn btn-primary" href="javascript:;" value="<?=$incap->id_incapacidad?>" id="editIncapacidad<?=$incap->id_incapacidad?>">Modificar</a></td>
+        <td><a class="btn btn-primary" href="<?=$this->basePath()?>/add_incap/index/<?=$incap->id_incapacidad?>">Modificar</a></td>
         <td><a class="btn btn-danger" href="<?=$this->basePath()?>/add_incap/<?=$incap->id_incapacidad?>">Eliminar</a></td>
-        <script>$(document).on('click', '#editIncapacidad<?=$incap->id_incapacidad?>', function() { $.get("<?= $this->url('add_incap', array('action' => 'index', 'id' => ''.$incap->id_incapacidad.'' )) ?>").done(function(respuesta) { $('#html_contentPop').html(respuesta);}); $('#modalincap').modal({keyboard: false, backdrop: 'static', show: true});});</script>
+        
     </tr>
     <?php } ?>
 </table>

@@ -326,20 +326,29 @@ class FormIncapacidad  extends Form
          * @type Select
          * @var Prorroga
          */
-        $varDiagn = array(0 => "", 1 => "Es una Prorroga.");
+        if ( isset($parametrosSelects["incapDefault"]) && is_array($parametrosSelects["incapDefault"]) && count($parametrosSelects["incapDefault"]) > 0 ) {
+         
+            $varIncap = $parametrosSelects["incapDefault"];
+            
+        } else {
+            $varIncap = array( "" => "Seleccione..." );
+        }
         
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'prorroga',
             'options' => array(
                 'label' => 'Prorroga: ',
-                'value_options' => $varDiagn
+                'value_options' => $varIncap,
+                'disable_inarray_validator' => true,
         
             ),
             'attributes' => [
-                'id' => 'prorroga', 'class' => 'form-control','required'=>'required'
+                'id' => 'prorroga', 'class' => 'form-control'
             ],
         ));
+        
+        
         
         
         

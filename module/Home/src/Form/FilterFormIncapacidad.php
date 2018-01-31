@@ -98,6 +98,13 @@ class FilterFormIncapacidad implements InputFilterAwareInterface
             
             )));
             
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'prorroga',
+                'required' => false,
+                'allowEmpty' => true,
+            
+            )));
+            
             
             
             $inputFilter->add($factory->createInput(array(
