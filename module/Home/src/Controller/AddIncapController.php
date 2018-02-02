@@ -82,6 +82,7 @@ class AddIncapController extends AbstractActionController
             foreach ($incapacidad as $datosInc) {
                 $parametrosFormulario["asociadoDefault"] = [$datosInc->id_asociado => $datosInc->cedula." - ".$datosInc->nombre." ".$datosInc->apellido1." ".$datosInc->apellido2];
                 $parametrosFormulario["diagnosticoDefault"] = [$datosInc->id_diagnostico => $datosInc->codigo." - ".$datosInc->diagnostico];
+                $parametrosFormulario["prorrogaDefault"] = [$datosInc->id_inc_prorroga => $datosInc->num_prorroga];
                 $incapacidadLoad["tipoincap"] = $datosInc->id_tipoincapacidad;
                 $incapacidadLoad["sucursal"] = $datosInc->id_sucursal;
                 $incapacidadLoad["eps"] = $datosInc->id_eps;

@@ -2,7 +2,7 @@
 
 /**
  * @author Oscar Aldana
- * @copyright 2016
+ * @copyright 2018
  */
 
 namespace Home\Form;
@@ -326,9 +326,9 @@ class FormIncapacidad  extends Form
          * @type Select
          * @var Prorroga
          */
-        if ( isset($parametrosSelects["incapDefault"]) && is_array($parametrosSelects["incapDefault"]) && count($parametrosSelects["incapDefault"]) > 0 ) {
+        if ( isset($parametrosSelects["prorrogaDefault"]) && is_array($parametrosSelects["prorrogaDefault"]) && count($parametrosSelects["prorrogaDefault"]) > 0 ) {
          
-            $varIncap = $parametrosSelects["incapDefault"];
+            $varIncap = $parametrosSelects["prorrogaDefault"];
             
         } else {
             $varIncap = array( "" => "Seleccione..." );

@@ -37,8 +37,15 @@
             ->prependFile($this->basePath('js/select2.min.js'))
             ->prependFile($this->basePath('js/sweetalert.min.js'))
             ->prependFile($this->basePath('js/jquery-ui.js'))
+            ->prependFile($this->basePath('js/paginate.js'))
             ; ?>
 
+       <?php 
+            if ( strcmp($this->layout()->controllerName,'diagnosticos') == 0) { 
+                echo $this->headScript()->prependFile($this->basePath('js/admin.js'));
+            } 
+       ?>
+       
         <!----webfonts---->
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
 		
@@ -48,6 +55,7 @@
 		
 	<?php if( !isset($this->logueado) || ( isset($this->logueado) && !$this->logueado) ) { ?>  
 	<script>   
+            
     $(function(){
      $("#btn_login").click(function(){
      var url = "<?= $this->url('login', array('action' => 'authenticate')); ?>"; // El script a dónde se realizará la petición.
@@ -121,7 +129,7 @@
             <ul class="nav navbar-nav">
               <li class="<?= ( (strcmp($this->layout()->controllerName,'index') == 0 ) || (strcmp($this->layout()->controllerName,'') == 0 ) )?'active':'' ?>"><a href="<?= $this->url('home') ?>">Home</a></li>
               
-              <?php if ( isset($this->logueado) && $this->logueado ) { ?>  
+              <?php if ( isset($this->logueado) && $this->logueado ) { ?> 
             		<li class="dropdown <?= ( (preg_match('/add_incap|list_incap/', $this->layout()->controllerName)) !== 0 ) ? 'active' : '' ?>"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Incapacidades <b class="caret"></b></a>
             		    <!--  <a href="<?= $this->url('add_incap', array('action' => 'index')); ?>">Add Incap</a></li> -->
             		    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu" style=" margin-top: -1px;">
@@ -139,7 +147,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar</a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?= $this->url('causales', array('action' => 'index')); ?>">Causales</a></li>
-                              	<li><a href="#">Diagnosticos</a></li>
+                              	<li><a href="<?= $this->url('diagnosticos', array('action' => 'index')); ?>">Diagnosticos</a></li>
                               	<li><a href="#">Eps</a></li>
                               	<li><a href="#">Personas</a></li>
                               	<li><a href="#">Sucursales</a></li>
@@ -243,16 +251,16 @@
             <hr>
             
     </div>
-    <footer class="footer">
+    <footer class="footer" style="position: absolute;bottom: 0;width: 100%;">
       
       <div class="footer__copyright">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <p>&copy;2016 Best company</p>
+              <p>Copyright &copy; <?= date("Y")?> All Rights Reserved </p>
             </div>
             <div class="col-md-6">
-              <p class="credit">Template by <a href="https://bootstrapious.com/free-templates" class="external">Bootstrapious.com</a></p>
+              <p class="credit"><a href="http://www.aldanarojas.com" class="external">www.aldanarojas.com</a></p>
               <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
             </div>
           </div>

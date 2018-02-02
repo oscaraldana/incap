@@ -43,15 +43,25 @@ class Module implements ConfigProviderInterface
         return [
             
             'factories' => [
-                \Home\Model\CausalesTable::class => function($container) {
+                \HomeModel\CausalesTable::class => function($container) {
                     $tableGateway = $container->get(\Home\Model\CausalesTableGateway::class);
                     return new \Home\Model\CausalesTable($tableGateway);
                 },
-                \Home\Model\CausalesTableGateway::class => function ($container) {
+                \HomeModel\CausalesTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new \Home\Model\Causales());
                     return new TableGateway('causales', $dbAdapter, null, $resultSetPrototype);
+                },
+                \HomeModel\DiagnosticoTable::class => function($container) {
+                    $tableGateway = $container->get(\Home\Model\DiagnosticoTableGateway::class);
+                    return new \Home\Model\CausalesTable($tableGateway);
+                },
+                \HomeModel\DiagnosticoTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new \Home\Model\Diagnostico());
+                    return new TableGateway('diagnostico', $dbAdapter, null, $resultSetPrototype);
                 },
                 /*
                 Model\SucursalTable::class => function($container) {
@@ -146,6 +156,11 @@ class Module implements ConfigProviderInterface
                 Controller\CausalesController::class => function($container) {
                     return new Controller\CausalesController(
                             $container->get(\Home\Model\CausalesTable::class)
+                        );
+                },
+                Controller\DiagnosticosController::class => function($container) {
+                    return new Controller\DiagnosticosController(
+                            $container->get(\Home\Model\DiagnosticoTable::class)
                         );
                 },
                 /*

@@ -66,8 +66,14 @@ class ListIncapController extends AbstractActionController
         
         //$form = new FormIncapacidad('form_add_incap', $parametrosFormulario);
         
+        if(isset($container->paramsConsulta) && count($container->paramsConsulta)>0){
+            $viewModel = new ViewModel(["datosform"=>$parametrosFormulario, 'url'=> $this->getRequest()->getBaseUrl(), "datosSession" =>$container->paramsConsulta]);
+        } else {
+            $viewModel = new ViewModel(["datosform"=>$parametrosFormulario, 'url'=> $this->getRequest()->getBaseUrl()]);
+        }
         
-        $viewModel = new ViewModel(["datosform"=>$parametrosFormulario, 'url'=> $this->getRequest()->getBaseUrl()]);
+        
+        
         if (isset( $container->usuario )){
             //$this->redirect()->toRoute('home');
             $this->layout()->logueado = true;
@@ -76,7 +82,7 @@ class ListIncapController extends AbstractActionController
             $this->redirect()->toRoute('home');
         }
         
-       
+        
         
         return $viewModel;
     }
@@ -192,6 +198,8 @@ class ListIncapController extends AbstractActionController
         
         $this->layout('layout/ajax_layout.phtml');
         $postData = $this->getRequest()->getPost();
+        //var_export($postData);
+        $this->setearConsultaEnSession($postData);
         //var_export($postData);
         
         $listaIncap=$this->tableIncapacidad->consultarIncapacidades($postData);
@@ -353,6 +361,18 @@ class ListIncapController extends AbstractActionController
             array(
                 "incapacidad"=>$listaIncap
             ));
+    }
+    
+    
+    public function setearConsultaEnSession($postData){
+        
+        $container = new Container('incapacidades');
+        
+         if (isset( $container->paramsConsulta )){
+             unset($container->paramsConsulta);
+         }
+         $container->paramsConsulta = $postData;
+         
     }
     
 }

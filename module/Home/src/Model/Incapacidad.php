@@ -25,6 +25,7 @@ class Incapacidad
     public $nombre;
     public $apellido1;
     public $apellido2;
+    public $num_prorroga;
     
     
     public function exchangeArray(array $data){
@@ -61,6 +62,7 @@ class Incapacidad
         $this->tipoincap   = (isset($data["tipoincapacidad"]) && !empty($data["tipoincapacidad"])) ? $data["tipoincapacidad"] : null;
         $this->cedula   = (isset($data["identificacion"]) && !empty($data["identificacion"])) ? $data["identificacion"] : null;
         $this->codigo   = (isset($data["codigo_diagnostico"]) && !empty($data["codigo_diagnostico"])) ? $data["codigo_diagnostico"] : null;
+        $this->num_prorroga   = (isset($data["num_prorroga"]) && !empty($data["num_prorroga"])) ? $data["num_prorroga"] : null;
         
         //var_export($data); echo "<hr>";
     }

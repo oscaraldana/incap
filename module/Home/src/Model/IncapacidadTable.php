@@ -197,7 +197,7 @@ class IncapacidadTable
         // Id incapacidad
         if ( isset($criterios["id"]) && $criterios["id"] != '' ) {
             if ( !empty($GLOBALS["where"]) ) { $GLOBALS["where"] .= " AND "; }
-            $GLOBALS["where"] .= " id_incapacidad = ".$criterios["id"]." ";
+            $GLOBALS["where"] .= " incapacidad.id_incapacidad = ".$criterios["id"]." ";
         }
         
         
@@ -385,7 +385,7 @@ class IncapacidadTable
         $select->join(['eps' => 'eps'],'incapacidad.id_eps = eps.id_eps');
         $select->join(['suc' => 'sucursal'],'incapacidad.id_sucursal = suc.id_sucursal');
         $select->join(['tip' => 'tipoincapacidad'],'incapacidad.id_tipoincapacidad = tip.id_tipoincapacidad');
-        $select->join(['prorr' => 'incapacidad'],'incapacidad.id_incapacidad = prorr.id_incapacidad', $select::JOIN_OUTER);
+        $select->join(['prorr' => 'incapacidad'],'incapacidad.id_inc_prorroga = prorr.id_incapacidad', ['num_prorroga' => 'no_incapacidad'] , $select::JOIN_LEFT_OUTER );
         $select->where($GLOBALS["where"]);
         
         // GROUP BY

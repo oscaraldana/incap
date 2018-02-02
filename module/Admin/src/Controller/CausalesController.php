@@ -17,7 +17,7 @@ class CausalesController extends AbstractActionController
     private $tableCausales;
     
     public function __construct(
-                                Causales $tableCausales
+                                \Home\Model\CausalesTable $tableCausales
                                 ){
             
         $this->tableCausales = $tableCausales;
